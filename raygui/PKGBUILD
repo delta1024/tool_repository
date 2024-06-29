@@ -1,0 +1,59 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=raygui
+pkgver=4.0
+pkgrel=1
+epoch=
+pkgdesc="A simple and easy-to-use immediate-mode gui library"
+arch=('x86_64')
+url="https://github.com/raysan5/raygui"
+license=('ZLIB')
+groups=()
+depends=("raylib>=5.0" )
+makedepends=(gcc)
+checkdepends=()
+optdepends=()
+provides=(raygui=4.0)
+conflicts=(raygui=4.0)
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://github.com/raysan5/$pkgname/archive/refs/tags/$pkgver.tar.gz")
+noextract=()
+sha256sums=(SKIP)
+validpgpkeys=()
+
+prepare() {
+	cd "$pkgname-$pkgver"
+	cp src/raygui.h src/raygui.c
+}
+
+build() {
+	cd "$pkgname-$pkgver"
+	gcc -o raygui.so src/raygui.c -shared -fpic \
+		-DRAYGUI_IMPLEMENTATION \
+		-lraylib \
+		-lGL\
+		-lm \
+		-lpthread \
+		-ldl \
+		-lX11
+}
+
+check() {
+	cd "$pkgname-$pkgver"
+}
+
+package() {
+	cd "$pkgname-$pkgver"
+	mkdir -p "$pkgdir/usr/lib"
+	mkdir -p "$pkgdir/usr/include"
+	install -m644 raygui.so "$pkgdir/usr/lib/"
+	install -m644 src/raygui.h "$pkgdir/usr/include/"
+}
