@@ -12,7 +12,7 @@ pkgdesc="A simple and easy-to-use raygui layouts editor"
 arch=(x86_64)
 url="https://github.com/raysan5/rguilayout"
 license=('ZLIB')
-groups=()
+groups=(raygui-dev)
 depends=("raygui>=4.0")
 makedepends=()
 checkdepends=()
@@ -24,24 +24,24 @@ backup=()
 options=()
 install=
 changelog=
-source=("https://github.com/raysan5/rguilayout/releases/download/4.0/rguilayout_v4.0_linux_x64.zip")
+source=("https://github.com/raysan5/rguilayout/releases/download/${pkgver}/${pkgname}_v${pkgver}_linux_x64.zip")
 noextract=()
 sha256sums=(SKIP)
 validpgpkeys=()
 
 prepare() {
-	cd "$pkgname_v$pkgver_linux_x64"
+	cd "${pkgname}_v${pkgver}_linux_x64"
 
 }
 
 build() {
-	cd "$pkgname_v$pkgver_linux_x64"
+	cd "${pkgname}_v${pkgver}_linux_x64"
 	
 }
 
 package() {
 
-	cd rguilayout_v4.0_linux_x64/
+	cd "${pkgname}_v${pkgver}_linux_x64"
 
 	mkdir -p "$pkgdir/usr/share/rguilayout/layouts"
 	mkdir -p "$pkgdir/usr/bin/"
