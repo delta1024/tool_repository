@@ -4,7 +4,8 @@
 # then please put 'unknown'.
 
 # Maintainer: Your Name <youremail@domain.com>
-pkgname=raygui
+pkgname=raygui-bin
+binname=raygui
 pkgver=4.0
 pkgrel=1
 epoch=
@@ -19,24 +20,24 @@ checkdepends=()
 optdepends=()
 provides=(raygui=4.0)
 conflicts=(raygui=4.0)
-replaces=()
+replaces=(raygui=4.0)
 backup=()
 options=()
 install=
 changelog=
-source=("https://github.com/raysan5/$pkgname/archive/refs/tags/$pkgver.tar.gz")
+source=("https://github.com/raysan5/$binname/archive/refs/tags/$pkgver.tar.gz")
 noextract=()
 sha256sums=(SKIP)
 validpgpkeys=()
 
 prepare() {
-	cd "$pkgname-$pkgver"
+	cd "$binname-$pkgver"
 	cp src/raygui.h src/raygui.c
 }
 
 build() {
-	cd "$pkgname-$pkgver"
-	gcc -o raygui.so src/raygui.c -shared -fpic \
+	cd "$binname-$pkgver"
+	gcc -o libraygui.so src/raygui.c -shared -fpic \
 		-DRAYGUI_IMPLEMENTATION \
 		-lraylib \
 		-lGL\
@@ -47,13 +48,13 @@ build() {
 }
 
 check() {
-	cd "$pkgname-$pkgver"
+	cd "$binname-$pkgver"
 }
 
 package() {
-	cd "$pkgname-$pkgver"
+	cd "$binname-$pkgver"
 	mkdir -p "$pkgdir/usr/lib"
 	mkdir -p "$pkgdir/usr/include"
-	install -m644 raygui.so "$pkgdir/usr/lib/"
+	install -m644 libraygui.so "$pkgdir/usr/lib/"
 	install -m644 src/raygui.h "$pkgdir/usr/include/"
 }

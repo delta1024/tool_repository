@@ -1,0 +1,4 @@
+*.tar.zst
+*.tar.zst.old
+*.files
+*.db
