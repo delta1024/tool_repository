@@ -3,9 +3,8 @@
 # NOTE: Please fill out the license field for your package! If it is unknown,
 # then please put 'unknown'.
 
-# Maintainer: Your Name <youremail@domain.com>
-pkgname=raygui-bin
-binname=raygui
+# Maintainer: Jacob Stannix <jakestannix@gmail.com>
+pkgname=raygui
 pkgver=4.0
 pkgrel=1
 epoch=
@@ -14,29 +13,29 @@ arch=('x86_64')
 url="https://github.com/raysan5/raygui"
 license=('ZLIB')
 groups=()
-depends=("raylib>=5.0" )
+depends=("raylib>=5.0" "mesa" "xorg-server-common" )
 makedepends=(gcc)
 checkdepends=()
 optdepends=()
 provides=(raygui=4.0)
 conflicts=(raygui=4.0)
-replaces=(raygui=4.0)
+replaces=()
 backup=()
 options=()
 install=
 changelog=
-source=("https://github.com/raysan5/$binname/archive/refs/tags/$pkgver.tar.gz")
+source=("https://github.com/raysan5/$pkgname/archive/refs/tags/$pkgver.tar.gz")
 noextract=()
 sha256sums=(SKIP)
 validpgpkeys=()
 
 prepare() {
-	cd "$binname-$pkgver"
+	cd "$pkgname-$pkgver"
 	cp src/raygui.h src/raygui.c
 }
 
 build() {
-	cd "$binname-$pkgver"
+	cd "$pkgname-$pkgver"
 	gcc -o libraygui.so src/raygui.c -shared -fpic \
 		-DRAYGUI_IMPLEMENTATION \
 		-lraylib \
@@ -47,14 +46,9 @@ build() {
 		-lX11
 }
 
-check() {
-	cd "$binname-$pkgver"
-}
 
 package() {
-	cd "$binname-$pkgver"
-	mkdir -p "$pkgdir/usr/lib"
-	mkdir -p "$pkgdir/usr/include"
-	install -m644 libraygui.so "$pkgdir/usr/lib/"
-	install -m644 src/raygui.h "$pkgdir/usr/include/"
+	cd "$pkgname-$pkgver"
+	install -Dm644 libraygui.so "$pkgdir/usr/lib/libraygui.so"
+	install -Dm644 src/raygui.h "$pkgdir/usr/include/raygui.h"
 }
