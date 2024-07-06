@@ -1,0 +1,3 @@
+[submodule "pkgs/zig"]
+	path = pkgs/zig
+	url = git@github.com:delta1024Packages/zig.git
