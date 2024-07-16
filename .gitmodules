@@ -7,3 +7,6 @@
 [submodule "pkgs/rguilayout"]
 	path = pkgs/rguilayout
 	url = git@github.com:delta1024Packages/rguilayout.git
+[submodule "pkgs/projman"]
+	path = pkgs/projman
+	url = git@github.com:delta1024Packages/projman.git
